@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 var TASKS : Task[] = [
   { id : 1, name : "Trabalhar"},
@@ -18,16 +18,30 @@ export class Task{
 }
 
 @Component({
+  selector: 'task-edit',
+  template: `
+  <div *ngIf="task">
+    <input type="text" [(ngModel)]="task.name" />
+  </div>
+  `
+})
+
+export class TaskEdit{
+  @Input()
+  task : Task
+}
+
+@Component({
   selector: 'my-app',
   template: `
     <h1>{{title}}</h1>
     <ul>
       <li *ngFor="let t of tasks" (click)="onClick( t )">{{t.id}} - {{t.name}}</li>
     </ul>
-    <div *ngIf="selectedTask">
-      <input type="text" [(ngModel)]="selectedTask.name" />
-    </div>
+    <task-edit [task]="selectedTask"></task-edit>
   `
+  ,
+  directives: [TaskEdit]
 })
 export class AppComponent {
   title = "Hello World!!!";
