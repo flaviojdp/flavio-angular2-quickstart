@@ -1,35 +1,7 @@
 import { Component, Input } from '@angular/core';
-
-var TASKS : Task[] = [
-  { id : 1, name : "Trabalhar"},
-  { id : 2, name : "Lavar pratos"},
-  { id : 3, name : "Tirar poeira"},
-  { id : 4, name : "Compras no supermercado"},
-  { id : 5, name : "Cuidar da criança"},
-  { id : 6, name : "Jogar víde game"},
-  { id : 7, name : "Almoçar"},
-  { id : 8, name : "Jantar"},
-  { id : 9, name : "Fazer exercício"},
-  { id : 10, name : "Pagar Contas"}
-];
-export class Task{
-  id : number;
-  name: string;
-}
-
-@Component({
-  selector: 'task-edit',
-  template: `
-  <div *ngIf="task">
-    <input type="text" [(ngModel)]="task.name" />
-  </div>
-  `
-})
-
-export class TaskEdit{
-  @Input()
-  task : Task
-}
+import { TaskEditComponent } from './task-edit.component';
+import { Task } from './task';
+import { TaskService } from './task.service';
 
 @Component({
   selector: 'my-app',
@@ -41,12 +13,18 @@ export class TaskEdit{
     <task-edit [task]="selectedTask"></task-edit>
   `
   ,
-  directives: [TaskEdit]
+  directives: [TaskEditComponent],
+  providers : [TaskService]
 })
 export class AppComponent {
   title = "Hello World!!!";
-  tasks : Task[] = TASKS;
+  tasks : Task[];
   selectedTask : Task;
+
+  constructor(private taskService: TaskService){
+    //var service = new TaskService();
+    this.tasks = this.taskService.getTasks();
+  }
 
   onClick( task ){
     this.selectedTask = task;
