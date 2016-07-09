@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TaskEditComponent } from './task-edit.component';
 import { Task } from './task';
 import { TaskService } from './task.service';
@@ -16,14 +16,19 @@ import { TaskService } from './task.service';
   directives: [TaskEditComponent],
   providers : [TaskService]
 })
-export class AppComponent {
+export class AppComponent  implements OnInit {
   title = "Hello World!!!";
   tasks : Task[];
   selectedTask : Task;
 
-  constructor(private taskService: TaskService){
-    //var service = new TaskService();
-    this.tasks = this.taskService.getTasks();
+  constructor(private taskService: TaskService  ){}
+  
+  ngOnInit():any{
+    this.getTasks();
+  }
+  
+  getTasks():Task[]{
+    return this.tasks = this.taskService.getTasks();
   }
 
   onClick( task ){
