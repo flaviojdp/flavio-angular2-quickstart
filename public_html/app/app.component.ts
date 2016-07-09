@@ -1,37 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { TaskEditComponent } from './task-edit.component';
-import { Task } from './task';
-import { TaskService } from './task.service';
+import { Component } from '@angular/core';
+import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import {TaskListComponent} from './task-list.component'
+import {TaskEditComponent} from './task-edit.component'
+import {TaskService} from './task.service'
+
+@RouteConfig([
+  { 
+    path: '/task/list',
+    name: 'Task.list',
+    component: TaskListComponent
+  },
+  { 
+    path: '/task/:id/edit',
+    name: 'Task.edit',
+    component: TaskEditComponent
+  }
+])
 
 @Component({
   selector: 'my-app',
   template: `
     <h1>{{title}}</h1>
-    <ul>
-      <li *ngFor="let t of tasks" (click)="onClick( t )">{{t.id}} - {{t.name}}</li>
-    </ul>
-    <task-edit [task]="selectedTask"></task-edit>
-  `
-  ,
-  directives: [TaskEditComponent],
-  providers : [TaskService]
+    <a [routerLink]="['Task.list']">Lista de tarefas</a>
+    <router-outlet></router-outlet>
+  `,
+  directives: [ROUTER_DIRECTIVES],
+  providers: [TaskService]
 })
-export class AppComponent  implements OnInit {
-  title = "Hello World!!!";
-  tasks : Task[];
-  selectedTask : Task;
-
-  constructor(private taskService: TaskService  ){}
-  
-  ngOnInit():any{
-    this.getTasks();
-  }
-  
-  getTasks():Task[]{
-    return this.tasks = this.taskService.getTasks();
-  }
-
-  onClick( task ){
-    this.selectedTask = task;
-  }
+export class AppComponent {
+  title = "Hello World!!!";  
 }
