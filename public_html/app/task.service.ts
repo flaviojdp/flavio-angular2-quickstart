@@ -9,14 +9,15 @@ export class TaskService{
   //constructor( @Inject( Http ) http: Http){}
   constructor( private http: Http){}
   //getTasks():Promise<Task[]>{
-  //getTasks():Promise<Task[]>{
-  getTasks():any{
+  getTasks():Promise<Task[]>{
+  //getTasks():any{
+    /*
       var promise = new Promise(function(resolve, reject){
         window.setInterval(function(){
           resolve( TASKS );
         },3000);
         
-      });
+      }); */
       //return promise;
       
       return this.http.get('http://localhost:99/tasks').toPromise().then( x => x.json()._embedded.tasks );
