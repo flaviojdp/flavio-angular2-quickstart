@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import {TaskListComponent} from './task-list.component'
-import {TaskEditComponent} from './task-edit.component'
-import {TaskService} from './task.service'
+import {TaskListComponent} from './task-list.component';
+import {TaskEditComponent} from './task-edit.component';
+import {TaskService} from './task.service';
+import 'rxjs/Rx';
 
 @RouteConfig([
   { 

@@ -24,8 +24,10 @@ export class TaskListComponent implements OnInit{
     this.getTasks();
   }
   
-  getTasks():Task[]{
-    return this.tasks = this.taskService.getTasks();
+  getTasks(){
+    var promise = this.taskService.getTasks();
+    promise.then(result => this.tasks = result);
+    //return this.tasks = 
   }
 
   onClick( task ){
